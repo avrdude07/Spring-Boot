@@ -1,6 +1,7 @@
 package com.example.api.services;
 
 import com.example.api.models.entities.Product;
+import com.example.api.models.entities.Supplier;
 import com.example.api.models.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class ProductService {
     }
 
     public Iterable<Product> findAll(){
-         return productRepo.findAll();
+        return productRepo.findAll();
     }
 
     public void removeOne(Long id){
@@ -38,5 +39,14 @@ public class ProductService {
 
     public List<Product> findByName(String name){
         return productRepo.findByNameContains(name);
+    }
+
+    public void addSupplier(Supplier supplier, Long productId){
+        Product product = findOne(productId);
+        if(product == null){
+            throw new RuntimeException("Product with ID: "+productId+" not found");
+        }
+        product.getSuppliers().add(supplier);
+        save(product);
     }
 }

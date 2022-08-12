@@ -1,0 +1,7 @@
+package com.example.api.models.repos;
+
+import com.example.api.models.entities.Supplier;
+import org.springframework.data.repository.CrudRepository;
+
+public interface SupplierRepo extends CrudRepository<Supplier, Long> {
+}

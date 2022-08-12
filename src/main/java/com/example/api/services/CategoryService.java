@@ -3,6 +3,7 @@ package com.example.api.services;
 import com.example.api.models.entities.Category;
 import com.example.api.models.repos.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.TransactionScoped;
@@ -33,5 +34,13 @@ public class CategoryService {
 
     public void removeOne(Long id){
         categoryRepo.deleteById(id);
+    }
+
+    public Iterable<Category> findByName(String name, Pageable pageable){
+        return categoryRepo.findByNameContains(name, pageable);
+    }
+
+    public Iterable<Category> seveBatch(Iterable<Category> categories){
+        return categoryRepo.saveAll(categories);
     }
 }
